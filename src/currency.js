@@ -5,26 +5,35 @@
  * To change this template use File | Settings | File Templates.
  */
 (function(){
-	var m = angular.module('softru.currency', []);
-	m.filter('outputCurrency', function(){
-		return function(amount){
+	var m = angular.module('nn.currency', []);
+	m.constant('nnCurrencyRate', 1);
+	m.constant('nnCurrencySymbol', false);
+
+	m.filter('nnCurrency', ['nnCurrencyRate', 'nnCurrencySymbol', function(nnCurrencyRate, nnCurrencySymbol) {
+		return function(amount) {
 			if(angular.isNumber(amount))
-				return amount/100 + ' $';
-			return 'o_O';
+				return (amount / nnCurrencyRate).toFixed(2) + (nnCurrencySymbol ? (' ' + nnCurrencySymbol) : '');
+			return '';
 		};
-	});
-	m.directive('inputCurrency', function(outputCurrencyFilter){
+	}]);
+
+	m.directive('nnCurrency', ['nnCurrencyFilter', 'nnCurrencyRate', function(nnCurrencyFilter, nnCurrencyRate) {
 		return {
 			require: '?ngModel',
 			link: function(scope, element, attrs, ngModel){
 				element.bind('blur', function(){
-					element.val(outputCurrencyFilter(ngModel.$modelValue));
+					element.val(nnCurrencyFilter(ngModel.$modelValue));
 				});
+
+				var isEmpty = ngModel.$isEmpty;
+				ngModel.$isEmpty = function(val){
+					return isEmpty(val);
+				};
 
 				ngModel.$formatters.push(function(value){
 					if(typeof value === 'undefined') return value;
 
-					return outputCurrencyFilter(value);
+					return nnCurrencyFilter(value);
 				});
 
 				ngModel.$parsers.push(function(value){
@@ -38,12 +47,12 @@
 					var float = parseFloat(value);
 					if(angular.isNumber(float))
 					{
-						return Math.round(parseFloat(value) * 100);
+						return Math.round(float * nnCurrencyRate);
 					}
 					else
 						return undefined;
 				});
 			}
 		};
-	});
+	}]);
 })();

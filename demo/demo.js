@@ -5,7 +5,8 @@
  * To change this template use File | Settings | File Templates.
  */
 (function(){
-	var app = angular.module('demo', ['softru.currency']);
+	var app = angular.module('demo', ['nn.currency']);
+	app.constant('nnCurrencyRate', 100);
 	app.controller('DemoCtrl', function($scope){
 		$scope.model = {
 			money: 123456

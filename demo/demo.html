@@ -9,10 +9,10 @@
 <body ng-app="demo" ng-controller="DemoCtrl">
 <div>
 	<div>
-		Filter: {{model.money | outputCurrency}}
+		Filter: {{model.money | nnCurrency}}
 	</div>
 	<div>
-		Input: <input type="text" ng-model="model.money" input-currency/>
+		Input: <input type="text" ng-model="model.money" nn-currency/>
 	</div>
 </div>
 <pre>
