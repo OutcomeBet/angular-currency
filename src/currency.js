@@ -39,6 +39,8 @@
 				ngModel.$parsers.push(function(value){
 					if(typeof value === 'undefined') return value;
 
+					if(typeof value === 'number') value = value.toString();
+
 					value = value.replace(/[^\-0-9.]/g, '');
 
 					if(value === '')
