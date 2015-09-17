@@ -33,7 +33,7 @@
 				ngModel.$formatters.push(function(value){
 					if(typeof value === 'undefined') return value;
 
-					return nnCurrencyFilter(value);
+					return parseFloat(nnCurrencyFilter(value));
 				});
 
 				ngModel.$parsers.push(function(value){
