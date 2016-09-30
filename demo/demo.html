@@ -6,17 +6,12 @@
 	<script src="../src/currency.js"></script>
 	<script src="demo.js"></script>
 </head>
+
 <body ng-app="demo" ng-controller="DemoCtrl">
-<div>
 	<div>
-		Filter: {{model.money | nnCurrency}}
+		<div>Filter: {{model.money | nnCurrency}}</div>
+		<div>Input: <input type="text" ng-model="model.money" nn-currency/></div>
 	</div>
-	<div>
-		Input: <input type="text" ng-model="model.money" nn-currency/>
-	</div>
-</div>
-<pre>
-	{{model}}
-</pre>
+	<pre>{{model}}</pre>
 </body>
 </html>
