@@ -6,8 +6,36 @@
 	m.filter('nnCurrency', ['nnCurrencyRate', 'nnCurrencySymbol', function(nnCurrencyRate, nnCurrencySymbol) {
 		return function(amount) {
 			if(angular.isNumber(amount))
-				return(amount / nnCurrencyRate).toFixed(2) + (nnCurrencySymbol ? (' ' + nnCurrencySymbol) : '');
+				return (amount / nnCurrencyRate).toFixed(2) + (nnCurrencySymbol ? (' ' + nnCurrencySymbol) : '');
 			return '';
+		};
+	}]);
+
+	m.filter('nnCurrencyNormalize', [function() {
+		return function(amount) {
+			if(angular.isString(amount)) {
+				amount = parseFloat(amount);
+			}
+
+			if(angular.isNumber(amount)) {
+				return amount.toFixed(2);
+			}
+
+			return '';
+		};
+	}]);
+
+	m.filter('nnCurrencyToCoins', ['nnCurrencyRate', function(nnCurrencyRate) {
+		return function(amount) {
+			if(angular.isString(amount)) {
+				amount = parseFloat(amount);
+			}
+
+			if(angular.isNumber(amount)) {
+				return (amount * nnCurrencyRate);
+			}
+
+			return NaN;
 		};
 	}]);
 
