@@ -59,7 +59,9 @@
 				});
 
 				ngModel.$parsers.push(function(value) {
-					if(typeof value === 'undefined') return value;
+					if(typeof value === 'undefined' || value === null) {
+						return value;
+					}
 
 					if(typeof value === 'number') value = value.toString();
 
