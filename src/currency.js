@@ -43,14 +43,28 @@
 		return {
 			require: '?ngModel',
 			link: function(scope, element, attrs, ngModel) {
+				var focus = false;
 				element.bind('blur', function() {
 					element.val(nnCurrencyFilter(ngModel.$modelValue));
+					focus = false;
+				});
+
+				element.bind('focus', function() {
+					focus = true;
 				});
 
 				var isEmpty = ngModel.$isEmpty;
 				ngModel.$isEmpty = function(val) {
 					return isEmpty(val);
 				};
+
+				scope.$watch(function() {
+					return ngModel.$modelValue;
+				}, function(value) {
+					if(!focus) {
+						element.val(nnCurrencyFilter(ngModel.$modelValue));
+					}
+				});
 
 				ngModel.$formatters.push(function(value) {
 					if(typeof value === 'undefined') return value;

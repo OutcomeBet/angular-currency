@@ -1,11 +1,11 @@
 {
   "name": "angular-currency",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+	"scripts": {
+		"build": "./node_modules/gulp-cli/bin/gulp.js"
+	},
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:OutcomeBet/angular-currency.git"
@@ -13,10 +13,14 @@
   "author": "nngoblin@gmail.com",
   "license": "UNLICENSED",
   "homepage": "https://github.com/OutcomeBet/angular-currency#readme",
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-ng-annotate": "^2.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.3"
+  "devDependencies": {
+		"@babel/core": "^7.0.0",
+		"babel-preset-env": "^1.7.0",
+		"gulp": "^4.0.0",
+		"gulp-babel": "^8.0.0",
+		"gulp-cli": "^2.0.1",
+		"gulp-ng-annotate": "^2.1.0",
+		"gulp-rename": "^1.4.0",
+		"gulp-uglify": "^3.0.2"
   }
 }

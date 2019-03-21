@@ -1,14 +1,17 @@
-var gulp = require('gulp'),
-	rename = require('gulp-rename'),
-	uglify = require('gulp-uglify'),
-	ng_annotate = require('gulp-ng-annotate');
+const { src, dest, parallel } = require('gulp');
+const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
+const ngAnnotate = require('gulp-ng-annotate');
 
-gulp.task('default', ['compress']);
-
-gulp.task('compress', function() {
-	gulp.src(['src/currency.js'])
-		.pipe(ng_annotate())
+function compress() {
+	return src(['src/currency.js'])
+		.pipe(babel({presets: ['env']}))
+		.pipe(ngAnnotate())
 		.pipe(uglify())
 		.pipe(rename('currency.min.js'))
-		.pipe(gulp.dest('dist/'));
-});
+		.pipe(dest('dist'));
+}
+
+exports.compress = compress;
+exports.default = parallel(compress);
